@@ -225,14 +225,8 @@ function AppComponent(props) {
                     </div>
                 </div>
             </FormComponent>
-            <div className={`col-sm-12`}>
-                <button type={'button'} className={`btn btn-primary`} onClick={testClick}>
-                    test
-                </button>
-            </div>
-            counter = {counter}
             <LeftComponent count={props.data.count} counter={counter} />
-            <p>{process.env.MASTHEAD}, {config.id}, { config.title }</p>
+            <p> counter = {counter} , {process.env.MASTHEAD}, {config.id}, { config.title }</p>
         </div>
     );
 }

@@ -4600,7 +4600,7 @@ var ___CSS_LOADER_URL_IMPORT_0___ = __webpack_require__(38);
 exports = ___CSS_LOADER_API_IMPORT___(true);
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = ___CSS_LOADER_GET_URL_IMPORT___(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-exports.push([module.i, ".InputComponent{position:relative}.InputComponent .form-group label{position:absolute;top:4px;left:12px;color:#606669}.InputComponent .form-group input{height:56px;font-size:16px;border:1px solid #606669;border-radius:2px;padding-top:14px}.InputComponent .form-group .form-control.is-invalid{border:1px solid #ca0a00}.InputComponent .form-group.filled label,.InputComponent .form-group.focused label{font-size:80%}.InputComponent .form-group.empty label,.InputComponent .form-group.pristine label{top:17px}.InputComponent .form-group.loading::after{background:url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");content:url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");width:38px;display:block;position:absolute;z-index:1;right:0;top:9px}.InputComponent .form-group.done::after{display:none}", "",{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AAAA,gBAAgB,iBAAiB,CAAC,kCAAkC,iBAAiB,CAAC,OAAO,CAAC,SAAS,CAAC,aAAa,CAAC,kCAAkC,WAAW,CAAC,cAAc,CAAC,wBAAwB,CAAC,iBAAiB,CAAC,gBAAgB,CAAC,qDAAqD,wBAAwB,CAAC,mFAAmF,aAAa,CAAC,mFAAmF,QAAQ,CAAC,2CAA2C,kDAAyC,CAAC,+CAAsC,CAAC,UAAU,CAAC,aAAa,CAAC,iBAAiB,CAAC,SAAS,CAAC,OAAO,CAAC,OAAO,CAAC,wCAAwC,YAAY","file":"styles.scss","sourcesContent":[".InputComponent{position:relative}.InputComponent .form-group label{position:absolute;top:4px;left:12px;color:#606669}.InputComponent .form-group input{height:56px;font-size:16px;border:1px solid #606669;border-radius:2px;padding-top:14px}.InputComponent .form-group .form-control.is-invalid{border:1px solid #ca0a00}.InputComponent .form-group.filled label,.InputComponent .form-group.focused label{font-size:80%}.InputComponent .form-group.empty label,.InputComponent .form-group.pristine label{top:17px}.InputComponent .form-group.loading::after{background:url(\"../../assets/loader.svg\");content:url(\"../../assets/loader.svg\");width:38px;display:block;position:absolute;z-index:1;right:0;top:9px}.InputComponent .form-group.done::after{display:none}"]}]);
+exports.push([module.i, ".InputComponent{position:relative}.InputComponent .form-group label{position:absolute;top:4px;left:12px;color:#606669}.InputComponent .form-group input{height:56px;font-size:16px;border:1px solid #606669;border-radius:2px;padding-top:14px}.InputComponent .form-group .form-control.is-invalid{border:1px solid #ca0a00}.InputComponent .form-group.filled label,.InputComponent .form-group.focused label{font-size:80%}.InputComponent .form-group.empty label,.InputComponent .form-group.pristine label{top:17px}.InputComponent .form-group.loading::after{background:url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");content:url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");width:38px;display:block;position:absolute;z-index:1;right:0;top:9px}.InputComponent .form-group.done::after{display:none}", "",{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AAAA,gBAAgB,iBAAiB,CAAC,kCAAkC,iBAAiB,CAAC,OAAO,CAAC,SAAS,CAAC,aAAa,CAAC,kCAAkC,WAAW,CAAC,cAAc,CAAC,wBAAwB,CAAC,iBAAiB,CAAC,gBAAgB,CAAC,qDAAqD,wBAAwB,CAAC,mFAAmF,aAAa,CAAC,mFAAmF,QAAQ,CAAC,2CAA2C,kDAA+C,CAAC,+CAA4C,CAAC,UAAU,CAAC,aAAa,CAAC,iBAAiB,CAAC,SAAS,CAAC,OAAO,CAAC,OAAO,CAAC,wCAAwC,YAAY","file":"styles.scss","sourcesContent":[".InputComponent{position:relative}.InputComponent .form-group label{position:absolute;top:4px;left:12px;color:#606669}.InputComponent .form-group input{height:56px;font-size:16px;border:1px solid #606669;border-radius:2px;padding-top:14px}.InputComponent .form-group .form-control.is-invalid{border:1px solid #ca0a00}.InputComponent .form-group.filled label,.InputComponent .form-group.focused label{font-size:80%}.InputComponent .form-group.empty label,.InputComponent .form-group.pristine label{top:17px}.InputComponent .form-group.loading::after{background:url(\"../../assets/input-loader.svg\");content:url(\"../../assets/input-loader.svg\");width:38px;display:block;position:absolute;z-index:1;right:0;top:9px}.InputComponent .form-group.done::after{display:none}"]}]);
 // Exports
 exports.locals = {
 	"InputComponent": "InputComponent",
@@ -5038,16 +5038,10 @@ function AppComponent(props) {
   }, react_default.a.createElement("button", {
     type: 'submit',
     className: "btn btn-primary"
-  }, "Create Customer and Continue")))), react_default.a.createElement("div", {
-    className: "col-sm-12"
-  }, react_default.a.createElement("button", {
-    type: 'button',
-    className: "btn btn-primary",
-    onClick: testClick
-  }, "test")), "counter = ", counter, react_default.a.createElement(modules["e" /* LeftComponent */], {
+  }, "Create Customer and Continue")))), react_default.a.createElement(modules["e" /* LeftComponent */], {
     count: props.data.count,
     counter: counter
-  }), react_default.a.createElement("p", null, "theaustralian", ", ", utils["a" /* config */].id, ", ", utils["a" /* config */].title));
+  }), react_default.a.createElement("p", null, " counter = ", counter, " , ", "theaustralian", ", ", utils["a" /* config */].id, ", ", utils["a" /* config */].title));
 }
 
 /* harmony default export */ var App = (AppComponent);
