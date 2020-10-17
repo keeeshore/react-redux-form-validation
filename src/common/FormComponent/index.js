@@ -7,9 +7,9 @@ const FormDataContext = React.createContext();
 
 function FormComponent(props) {
 
-   const [ counter, setCounter ] = useState(1);
-
    const [ validators, setValidators ] = useState([]);
+
+    const [loadingText, setLoadingText] = useState('ready...');
 
     const appDataContext = useContext(AppDataContext);
 
@@ -17,38 +17,44 @@ function FormComponent(props) {
 
     const [ forceValidate, setForceValidate ] = useState(false);
 
-    const [ isFormInvalid, setIsFormInvalid ] = useState(false);
-
     console.log(`FormComponent common ____ render = `, validators);
 
+    const onInputElemAdded = (elemRef) => {
+        console.log(`FormComponent :: onInputElemAdded elemRef = `, elemRef);
+        setValidators(validators => validators.concat(elemRef));
+    };
+
     const onFormSubmit = (event) => {
+        setLoadingText('In Progress...');
         if (event && event.preventDefault) {
             event.preventDefault();
         }
         if (event && event.stopPropagation) {
             event.stopPropagation();
         }
-        console.log(`FormComponent :: onFormSubmit store :: `, store.getState().customer);
-        setIsFormInvalid(false);
-        setForceValidate(true);
-        console.log(`FormComponent :: isFormInvalid ? `, isFormInvalid);
-        // props.onSubmit(isFormInvalid);
-        if (!isFormInvalid) {
-            alert(JSON.stringify(store.getState().customer));
-        }
+        console.log(`FormComponent :: onFormSubmit 1 store = `, store.getState().customer);
+        Promise.all(validators.map((elemRef) => {
+            console.log(`FormComponent :: onFormSubmit validator = `, elemRef);
+            return elemRef.current.isValid();
+        })).then((errors) => {
+            console.log(`FormComponent :: onFormSubmit 2 errors = `, errors);
+            props.onSubmit();
+            setLoadingText('Done!');
+        });
     };
 
-    console.log(`FormComponent common ____ render = `);
+    console.log(`FormComponent common ____ render = `, validators);
 
     return (
         <form className="FormComponent" onSubmit={onFormSubmit}>
             <h4>Enter your Details </h4>
             <p>
-                { getDynamicContent(config.content.intro_1, process.env.MASTHEAD) }, counter = { counter }
+                { getDynamicContent(config.content.intro_1, process.env.MASTHEAD) }
                 { appDataContext.test }
             </p>
-            <FormDataContext.Provider value={{ forceValidate, setForceValidate, setIsFormInvalid }}>
+            <FormDataContext.Provider value={{ onInputElemAdded, forceValidate, setForceValidate }}>
                 {props.children}
+                {loadingText}
             </FormDataContext.Provider>
         </form>
     );

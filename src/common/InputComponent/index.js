@@ -1,11 +1,11 @@
 import regeneratorRuntime from "regenerator-runtime"; // webpack bug
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, forwardRef, useImperativeHandle, useContext} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {InputComponentStyles, FormDataContext} from '../modules';
 
-const Input = (props, ref) => {
+const Input = forwardRef((props, ref) => {
 
-    console.log(`InputComponent ___ render = `, props, ' ref = ', ref);
+    console.log(`InputComponent ___ render = `, props.id);
 
     const inputStates = {
         PRISTINE: 'pristine',
@@ -36,7 +36,14 @@ const Input = (props, ref) => {
         return state[props.dispatchName][props.id];
     });
 
-    const formDataContext = useContext(FormDataContext);
+    useImperativeHandle(ref, () => ({
+        async isValid() {
+            console.log(`InputComponent :: isValid START from ${props.id}, value = ${value}`);
+            const error = await validate({isForced: true});
+            console.log(`InputComponent :: isValid COMPLETE from ${props.id}, error = ${error}`);
+            return error;
+        }
+    }));
 
     useEffect(() => {
         console.log(`InputComponent :: useEffect componentDidMount for ${props.id}`);
@@ -44,33 +51,12 @@ const Input = (props, ref) => {
     }, []);
 
     useEffect(() => {
-        console.log(`InputComponent :: useEffect formDataContent.forceValidate for ${props.id} as ${formDataContext.forceValidate}`);
-        if(formDataContext.forceValidate) {
-            async function anyNameFunction(opts) {
-                setLoaderClass(loadingState.START);
-                const error = await validate(opts);
-                setLoaderClass(loadingState.DONE);
-                setError(error);
-                formDataContext.setForceValidate(false);
-                if (error) {
-                    console.log(`InputComponent :: useEffect formDataContent.forceValidate  ${props.id} HAS error`);
-                    formDataContext.setIsFormInvalid(true);
-                }
-            }
-            anyNameFunction({isForced:true});
-        }
-    }, [formDataContext.forceValidate]);
-
-    useEffect(() => {
         console.log(`InputComponent :: useEffect componentDidUpdate value for ${props.id} : ${value}`);
         if (value) {
             setInputState(inputStates.FILLED);
         }
         async function anyNameFunction() {
-            setLoaderClass(loadingState.START);
-            const error = await validate();
-            setError(error);
-            setLoaderClass(loadingState.DONE);
+            return await validate();
         }
         anyNameFunction();
     }, [value]);
@@ -78,13 +64,21 @@ const Input = (props, ref) => {
     const validate = async (args) => {
         console.log(`InputComponent :: validate for ${props.id} : ${value}`);
         let error = '';
+        setLoaderClass(loadingState.START);
         if (!value && (inputState !== inputStates.PRISTINE || (args && args.isForced))) {
             error = `${props.label} is required`;
+            setLoaderClass(loadingState.DONE);
+            setError(error);
             return error;
         }
         if (typeof props.validator === 'function') {
             error = await props.validator(value);
+            setLoaderClass(loadingState.DONE);
+            setError(error);
+            return error;
         }
+        setLoaderClass(loadingState.DONE);
+        setError(error);
         return error;
     };
 
@@ -125,7 +119,7 @@ const Input = (props, ref) => {
 
     return TextInput;
 
-};
+});
 
 
 export const InputComponent = Input;
