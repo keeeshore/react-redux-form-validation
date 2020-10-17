@@ -37,9 +37,13 @@ function FormComponent(props) {
             console.log(`FormComponent :: onFormSubmit validator = `, elemRef);
             return elemRef.current.isValid();
         })).then((errors) => {
-            console.log(`FormComponent :: onFormSubmit 2 errors = `, errors);
+
+            errors = errors.filter((err) => {
+                return err || err !== '';
+            });
+            console.log(`FormComponent :: onFormSubmit has ${errors.length} errors = `, errors);
             props.onSubmit();
-            setLoadingText('Done!');
+            setLoadingText(`Done with ${errors.length} errors.`);
         });
     };
 
