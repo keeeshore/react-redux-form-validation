@@ -5,8 +5,6 @@ import * as serviceWorker from '../../serviceWorker';
 import { Provider } from 'react-redux';
 import { AppDataContext, store, data } from '../../../src/common/Redux';
 
-console.log('*********** START DT *********** ');
-
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>

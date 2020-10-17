@@ -3031,7 +3031,7 @@ if (true) {
 /* 8 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"intro_1\":\"You may already have an account with our COMMON (${masthead}} News+ Network. Subscribe with your existing account here. This is common content\",\"url\":\"https://www.${masthead}.com.au\"}");
+module.exports = JSON.parse("{\"intro_1\":\"React redux form with async validation tests\",\"url\":\"https://www.${masthead}.com.au\"}");
 
 /***/ }),
 /* 9 */
@@ -3728,27 +3728,18 @@ function FormComponent(props) {
 
   var appDataContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_Redux__WEBPACK_IMPORTED_MODULE_2__[/* AppDataContext */ "a"]);
   var store = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__[/* useStore */ "d"])();
-  var inputRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState6 = _slicedToArray(_useState5, 2),
       forceValidate = _useState6[0],
       setForceValidate = _useState6[1];
 
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      isFormInvalid = _useState8[0],
+      setIsFormInvalid = _useState8[1];
+
   console.log("FormComponent common ____ render = ", validators);
-
-  var onFormChange = function onFormChange(validator) {// console.log(`FormComponent :: onFormChange validators before = `, validators);
-    // setValidators(validators.push({ validator }));
-  };
-
-  var onInputElemAdded = function onInputElemAdded(elemRef) {
-    console.log("FormComponent :: onInputElemAdded elemRef = ", elemRef);
-    setValidators(function (validators) {
-      return validators.concat({
-        elemRef: elemRef
-      });
-    });
-  };
 
   var onFormSubmit = function onFormSubmit(event) {
     if (event && event.preventDefault) {
@@ -3759,24 +3750,25 @@ function FormComponent(props) {
       event.stopPropagation();
     }
 
-    console.log("FormComponent :: onFormSubmit store = ", store.getState().customer);
+    console.log("FormComponent :: onFormSubmit store :: ", store.getState().customer);
+    setIsFormInvalid(false);
     setForceValidate(true);
-    props.onSubmit();
+    console.log("FormComponent :: isFormInvalid ? ", isFormInvalid); // props.onSubmit(isFormInvalid);
+
+    if (!isFormInvalid) {
+      alert(JSON.stringify(store.getState().customer));
+    }
   };
 
-  var validate = function validate() {
-    console.log("FormComponent :: validate props = ", props);
-  };
-
-  console.log("FormComponent common ____ render = ", validators);
+  console.log("FormComponent common ____ render = ");
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: "FormComponent",
     onSubmit: onFormSubmit
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Enter your Details "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_utils__WEBPACK_IMPORTED_MODULE_3__[/* getDynamicContent */ "b"])(_utils__WEBPACK_IMPORTED_MODULE_3__[/* config */ "a"].content.intro_1, "theaustralian"), ", counter = ", counter, appDataContext.test), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormDataContext.Provider, {
     value: {
-      onInputElemAdded: onInputElemAdded,
       forceValidate: forceValidate,
-      setForceValidate: setForceValidate
+      setForceValidate: setForceValidate,
+      setIsFormInvalid: setIsFormInvalid
     }
   }, props.children));
 }
@@ -4036,7 +4028,7 @@ webpackContext.id = 29;
 /* 30 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"intro_1\":\"You may already have an account with our TA News+ ${Network}. Subscribe with your existing account here\",\"url\":\"https://localhost/default content _TA_\"}");
+module.exports = JSON.parse("{\"intro_1\":\"This is a custom content from test 2\",\"url\":\"https://localhost/default content _TA_\"}");
 
 /***/ }),
 /* 31 */
@@ -4101,15 +4093,15 @@ var Input = function Input(props, ref) {
   var value = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__[/* useSelector */ "c"])(function (state) {
     return state[props.dispatchName][props.id];
   });
-  var formDataContent = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_modules__WEBPACK_IMPORTED_MODULE_3__[/* FormDataContext */ "b"]);
+  var formDataContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_modules__WEBPACK_IMPORTED_MODULE_3__[/* FormDataContext */ "b"]);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     console.log("InputComponent :: useEffect componentDidMount for ".concat(props.id));
     setError();
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    console.log("InputComponent :: useEffect formDataContent.forceValidate for ".concat(props.id, " as ").concat(formDataContent.forceValidate));
+    console.log("InputComponent :: useEffect formDataContent.forceValidate for ".concat(props.id, " as ").concat(formDataContext.forceValidate));
 
-    if (formDataContent.forceValidate) {
+    if (formDataContext.forceValidate) {
       var anyNameFunction = function anyNameFunction(opts) {
         var error;
         return regenerator_runtime__WEBPACK_IMPORTED_MODULE_0___default.a.async(function anyNameFunction$(_context) {
@@ -4124,9 +4116,14 @@ var Input = function Input(props, ref) {
                 error = _context.sent;
                 setLoaderClass(loadingState.DONE);
                 setError(error);
-                formDataContent.setForceValidate(false);
+                formDataContext.setForceValidate(false);
 
-              case 7:
+                if (error) {
+                  console.log("InputComponent :: useEffect formDataContent.forceValidate  ".concat(props.id, " HAS error"));
+                  formDataContext.setIsFormInvalid(true);
+                }
+
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -4138,7 +4135,7 @@ var Input = function Input(props, ref) {
         isForced: true
       });
     }
-  }, [formDataContent.forceValidate]);
+  }, [formDataContext.forceValidate]);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     console.log("InputComponent :: useEffect componentDidUpdate value for ".concat(props.id, " : ").concat(value));
 
@@ -4810,21 +4807,16 @@ function AppComponent(props) {
       counter = _useState2[0],
       setCounter = _useState2[1];
 
-  var _useState3 = Object(react["useState"])(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      stripeEnabled = _useState4[0],
-      setStripeEnabled = _useState4[1];
-
   var customNameValidator = function customNameValidator(value) {
     var errorMessage;
     return regeneratorRuntime.async(function customNameValidator$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            errorMessage = "Has custom error ".concat(value);
+            errorMessage = "Name should not contain numbers";
             console.log('AppComponent :: customValidator START ', value);
             return _context.abrupt("return", new Promise(function (resolve, reject) {
-              if (value && value.toUpperCase() === 'TEST') {
+              if (value && value.match(/[1-9]/g)) {
                 setTimeout(function () {
                   console.log('AppComponent :: customValidator setTimeout return error: ', value);
                   resolve(errorMessage + new Date().toUTCString().substr(5, 20).replace(/[ ,:-]/g, '.'));
@@ -4843,117 +4835,7 @@ function AppComponent(props) {
     });
   };
 
-  var appFormSubmit = function appFormSubmit(event) {
-    if (event && event.preventDefault) {
-      event.preventDefault();
-    }
-
-    if (event && event.stopPropagation) {
-      event.stopPropagation();
-    } // console.log('AppComponent :: onFormSubmit: formData: ', formData, ' props: ', props);
-    // console.log('AppComponent :: onFormSubmit: stripeToken: ', stripeToken);
-    // console.log('AppComponent :: onFormSubmit: counter: ', counter);
-    // console.log(`AppComponent :: onFormChange store.getState() = `, store.getState());
-    // const customerObj = store.getState().customer;
-    // const url = `${config.COMMERCE_API}/customersapi/customers`;
-    // const customerData = {
-    //     phoneNumbers: [ '1234567890' ],
-    //     acceptedTermsAndCondition: true,
-    //     paymentAccount: {
-    //         token: event.stripeToken,
-    //         paymentType: 'CARD'
-    //     },
-    //     username: customerObj.email,
-    //     optIn: true,
-    //     site: process.env.MASTHEAD,
-    //     intendedOrders: [
-    //         {
-    //             siteId: "dailytelegraph",
-    //             pkgDef: "DT_SDO_P0420A_W04",
-    //             sourceCode: "DTWEB_ONL100",
-    //             v21: "dt-shopfront-spc"
-    //         }
-    //     ],
-    //     billingAddress: {
-    //         isManual: false,
-    //         formattedAddress: '',
-    //         streetAddress1: 'Test',
-    //         city: 'test',
-    //         dpid: '',
-    //         lookupId: '',
-    //         state: 'NSW',
-    //         postCode: "2041",
-    //         formattedPostCode: '',
-    //         status: 'QAS_POSTCODE_ONLY',
-    //         country: 'AU'
-    //     },
-    //     token: "03AGdBq27tReEc1TA8hvTBDneDm9SXfXfyNNUJV0446Ow1e4FRdTLNS0pDKzTNM_QJtLp7qxb5sAO3gwUbcl8Fj0f_1kqlSrBFLxOnBYurQ6OjbmcNObqkAkf0E_FvVOEhuZmgEWN4VPK_rk0-ly_9x7VazL2Qz00YPkHQBDgdqVyVRKThCrzwZSIMuB2Fp4e0XUmLAp6rYuJqD7zlRF1OEbQXnrzp6Vx8wcJTPjWngZeJEedk9V_UdjNu90SocK4Mm6iFFAafq1TQkkMVfX4EybbPwKT1fuHM_ZMoqkaytiIYC10y5I1fi5BrT1CViH06yMVIqxWuhl5xT6zXuoD51p0_jMg6PIz0_UisCCECr9Lw28ehZG1nw1Io5mYEZT2N37tog0UY6nuBO8o_2VV5PMcoIlyKlVwK7ceM6IxtDeIxxMvJcc3txgmWekeAKBJ-XqZjehftXVkZmACWrPr9ubGKSOhVdguc2CAJE5Oc5lC-tBThDWKrJ0g",
-    //     ...customerObj
-    // };
-    // console.log(' BEFORE FETCH customerData ============================ ', customerData);
-    // const options = {
-    //     method: 'POST',
-    //     mode: 'cors',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'x-api-key': config.X_API_KEY
-    //     },
-    //     body: JSON.stringify(customerData)
-    // };
-    // console.log(' BEFORE FETCH url ============================ ', url);
-    // console.log(' BEFORE FETCH options ============================ ', options);
-    // return fetch(url, options)
-    //     .then((res)=>{
-    //         return res.json();
-    //     }).then((result)=>{
-    //         console.log(' FINAL RESULT ============================ ', result);
-    //         postMessageToParent('EVENT_STRIPE_CUSTOMER_SUCCESS', result);
-    //     }).catch((err) => {
-    //         console.log(' FINAL err ============================ ', err);
-    //         postMessageToParent('EVENT_REACT_CUSTOMER_ERROR', err);
-    //     });
-
-  };
-
-  var testClick = function testClick() {
-    console.log("AppComponent ____ appFormSubmit testClick = ");
-  }; // const [stripeToken, setStripeToken] = useState();
-  // const onStripeSubmit = (event) => {
-  //     postMessageToParent('EVENT_REACT_STRIPE_SUBMIT', store.getState().customer);
-  // };
-  //
-  // const receiveMessageFromParent = (event) => {
-  //     console.log(`AppComponent :: receiveMessage event.origin = `, event.origin, ' event.data ', event.data);
-  //     const eventName = event && event.data && event.data.name;
-  //     const result = event && event.data && event.data.value;
-  //
-  //     if (eventName === 'EVENT_STRIPE_CAN_MAKE_PAYMENT') {
-  //         setStripeEnabled(true);
-  //         return;
-  //     }
-  //
-  //     if (eventName === 'EVENT_STRIPE_TOKEN_SUCCESS') {
-  //         console.log(`AppComponent :: EVENT_STRIPE_TOKEN_SUCCESS  result `, result);
-  //         const tokenMethod = (result.token && result.token.card && result.token.card.tokenization_method || 'card').toUpperCase();
-  //         const tokenId = result.token.id;
-  //         console.log(`AppComponent :: EVENT_STRIPE_TOKEN_SUCCESS  tokenId `, tokenId);
-  //         setStripeToken(tokenId);
-  //         console.log(`AppComponent :: EVENT_STRIPE_TOKEN_SUCCESS  stripeToken `, stripeToken);
-  //         onFormSubmit({stripeToken: tokenId});
-  //     }
-  //
-  // };
-  //
-  // const postMessageToParent = (name, value) => {
-  //     window.parent.postMessage({ name, value }, 'https://localhost/');
-  // };
-  //
-  // useEffect(() => {
-  //     console.log('AppComponent onComponentMount ONCE_____');
-  //     window.addEventListener('message', receiveMessageFromParent, false);
-  //     postMessageToParent('EVENT_REACT_APP_LOADED', 'test  loaded ');
-  // }, []);
-
+  var appFormSubmit = function appFormSubmit(isFormInvalid) {};
 
   return react_default.a.createElement("div", {
     className: "container"
@@ -4979,15 +4861,7 @@ function AppComponent(props) {
     id: 'password',
     type: 'password',
     dispatchName: 'customer'
-  })), stripeEnabled === true && react_default.a.createElement("div", {
-    className: "col-sm-12"
-  }, react_default.a.createElement("button", {
-    type: 'button',
-    className: "btn btn-primary",
-    onClick: function onClick(e) {
-      return onStripeSubmit(e);
-    }
-  }, "Buy with Google/Apple pay"), react_default.a.createElement("br", null), react_default.a.createElement("br", null)), react_default.a.createElement("div", {
+  })), react_default.a.createElement("div", {
     className: "col-sm-6"
   }, react_default.a.createElement(modules["c" /* InputComponent */], {
     mandatory: true,
@@ -5005,7 +4879,8 @@ function AppComponent(props) {
     name: 'lastName',
     id: 'lastName',
     type: 'text',
-    dispatchName: 'customer'
+    dispatchName: 'customer',
+    validator: customNameValidator
   })), react_default.a.createElement("div", {
     className: "col-sm-12"
   }, react_default.a.createElement(modules["c" /* InputComponent */], {
@@ -5026,22 +4901,15 @@ function AppComponent(props) {
     dispatchName: 'customer'
   })), react_default.a.createElement("div", {
     className: "col-sm-12"
-  }, react_default.a.createElement("div", {
-    className: "form-group form-check"
-  }, react_default.a.createElement("input", {
-    type: "checkbox",
-    className: "form-check-input"
-  }), react_default.a.createElement("label", {
-    className: "form-check-label"
-  }, "I agree to terms and conditions"))), react_default.a.createElement("div", {
-    className: "col-sm-12"
   }, react_default.a.createElement("button", {
     type: 'submit',
     className: "btn btn-primary"
-  }, "Create Customer and Continue")))), react_default.a.createElement(modules["e" /* LeftComponent */], {
+  }, "Validate and Submit")))), react_default.a.createElement(modules["e" /* LeftComponent */], {
     count: props.data.count,
     counter: counter
-  }), react_default.a.createElement("p", null, " counter = ", counter, " , ", "theaustralian", ", ", utils["a" /* config */].id, ", ", utils["a" /* config */].title));
+  }), react_default.a.createElement("p", {
+    class: "lead"
+  }, " counter = ", counter, " , ", "theaustralian", ", ", utils["a" /* config */].id, ", ", utils["a" /* config */].title));
 }
 
 /* harmony default export */ var App = (AppComponent);

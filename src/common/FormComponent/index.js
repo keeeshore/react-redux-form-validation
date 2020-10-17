@@ -15,21 +15,11 @@ function FormComponent(props) {
 
     const store = useStore();
 
-    const inputRef = useRef();
-
     const [ forceValidate, setForceValidate ] = useState(false);
 
+    const [ isFormInvalid, setIsFormInvalid ] = useState(false);
+
     console.log(`FormComponent common ____ render = `, validators);
-
-    const onFormChange = (validator) => {
-        // console.log(`FormComponent :: onFormChange validators before = `, validators);
-        // setValidators(validators.push({ validator }));
-    };
-
-    const onInputElemAdded = (elemRef) => {
-        console.log(`FormComponent :: onInputElemAdded elemRef = `, elemRef);
-        setValidators(validators => validators.concat({ elemRef }));
-    };
 
     const onFormSubmit = (event) => {
         if (event && event.preventDefault) {
@@ -38,16 +28,17 @@ function FormComponent(props) {
         if (event && event.stopPropagation) {
             event.stopPropagation();
         }
-        console.log(`FormComponent :: onFormSubmit store = `, store.getState().customer);
+        console.log(`FormComponent :: onFormSubmit store :: `, store.getState().customer);
+        setIsFormInvalid(false);
         setForceValidate(true);
-        props.onSubmit();
+        console.log(`FormComponent :: isFormInvalid ? `, isFormInvalid);
+        // props.onSubmit(isFormInvalid);
+        if (!isFormInvalid) {
+            alert(JSON.stringify(store.getState().customer));
+        }
     };
 
-    const validate = () => {
-        console.log(`FormComponent :: validate props = `, props);
-    };
-
-    console.log(`FormComponent common ____ render = `, validators);
+    console.log(`FormComponent common ____ render = `);
 
     return (
         <form className="FormComponent" onSubmit={onFormSubmit}>
@@ -56,7 +47,7 @@ function FormComponent(props) {
                 { getDynamicContent(config.content.intro_1, process.env.MASTHEAD) }, counter = { counter }
                 { appDataContext.test }
             </p>
-            <FormDataContext.Provider value={{ onInputElemAdded, forceValidate, setForceValidate }}>
+            <FormDataContext.Provider value={{ forceValidate, setForceValidate, setIsFormInvalid }}>
                 {props.children}
             </FormDataContext.Provider>
         </form>

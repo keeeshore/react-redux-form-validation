@@ -36,7 +36,7 @@ const Input = (props, ref) => {
         return state[props.dispatchName][props.id];
     });
 
-    const formDataContent = useContext(FormDataContext);
+    const formDataContext = useContext(FormDataContext);
 
     useEffect(() => {
         console.log(`InputComponent :: useEffect componentDidMount for ${props.id}`);
@@ -44,24 +44,27 @@ const Input = (props, ref) => {
     }, []);
 
     useEffect(() => {
-        console.log(`InputComponent :: useEffect formDataContent.forceValidate for ${props.id} as ${formDataContent.forceValidate}`);
-        if(formDataContent.forceValidate) {
+        console.log(`InputComponent :: useEffect formDataContent.forceValidate for ${props.id} as ${formDataContext.forceValidate}`);
+        if(formDataContext.forceValidate) {
             async function anyNameFunction(opts) {
                 setLoaderClass(loadingState.START);
                 const error = await validate(opts);
                 setLoaderClass(loadingState.DONE);
                 setError(error);
-                formDataContent.setForceValidate(false);
+                formDataContext.setForceValidate(false);
+                if (error) {
+                    console.log(`InputComponent :: useEffect formDataContent.forceValidate  ${props.id} HAS error`);
+                    formDataContext.setIsFormInvalid(true);
+                }
             }
             anyNameFunction({isForced:true});
         }
-    }, [formDataContent.forceValidate]);
+    }, [formDataContext.forceValidate]);
 
     useEffect(() => {
         console.log(`InputComponent :: useEffect componentDidUpdate value for ${props.id} : ${value}`);
         if (value) {
             setInputState(inputStates.FILLED);
-
         }
         async function anyNameFunction() {
             setLoaderClass(loadingState.START);
