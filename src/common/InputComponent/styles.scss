@@ -1,0 +1,50 @@
+.InputComponent {
+  position: relative;
+  .form-group {
+    label {
+      position: absolute;
+      top: 4px;
+      left: 12px;
+      color: #606669;
+    }
+    input {
+      height: 56px;
+      font-size: 16px;
+      border: 1px solid #606669;
+      border-radius: 2px;
+      //background: #F5F5F5;
+      padding-top: 14px;
+    }
+    .form-control.is-invalid {
+      border: 1px solid #CA0A00;
+    }
+  }
+  .form-group.filled,
+  .form-group.focused {
+    label {
+      font-size: 80%;
+    }
+    input {
+      //background: #FFF;
+    }
+  }
+  .form-group.empty,
+  .form-group.pristine {
+    label {
+      top: 17px;
+    }
+  }
+  .form-group.loading::after {
+      background: url("../../assets/input-loader.svg");
+      content: url("../../assets/input-loader.svg");
+      width: 38px;
+      display: block;
+      position: absolute;
+      z-index: 1;
+      right: 0;
+      top: 9px;
+  }
+  .form-group.done::after {
+    display: none;
+  }
+}
