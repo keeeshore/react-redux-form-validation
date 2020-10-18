@@ -6,6 +6,7 @@ Object.keys(Module).forEach(k => console.log(`:::::::::::: ${process.env.MASTHEA
 // TEST LOG FOR DEBUGGING END ----------------
 
 export const { FormComponent, FormDataContext } = require('./FormComponent');
+export const { FormInput } = require('./FormComponent/FormInput');
 export const { InputComponent } = Module.InputComponent ? Module : require('./InputComponent');
 export const { LeftComponent } = Module.LeftComponent ? Module : require('./LeftComponent');
 
