@@ -9,20 +9,48 @@ function AppComponent(props) {
     const [counter, setCounter] = useState(0);
 
     const customNameValidator = async (value) => {
-        const errorMessage = `Has custom error ${value}`;
-        console.log('AppComponent :: customValidator START ', value);
-        return new Promise((resolve, reject)=> {
-            if (value && value.toUpperCase() === 'TEST') {
-                setTimeout(() => {
-                    console.log('AppComponent :: customValidator setTimeout return error: ', value);
-                    resolve(errorMessage + new Date().toUTCString().substr(5, 20).replace(/[ ,:-]/g, '.') );
-                }, 3000);
-            } else {
-                console.log('AppComponent :: customValidator resolve ', value);
-                resolve('');
-            }
-        });
+        const inValid = /\d+/.test(value);
+        if (!value) {
+            return 'Name is required';
+        }
+        if (inValid) {
+            return 'Name should not contain numbers'
+        }
+        return '';  
     };
+    
+    const emailValidator = async (value) => {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        // if (!value) {
+        //     return 'Email is required';
+        // }
+        return new Promise((resolve, reject)=> {      
+            setTimeout(() => {
+                console.log('value === ', value);
+                const isInValid = (value || '').match(validRegex);
+                console.log(isInValid)
+                if (isInValid) {
+                    resolve('')
+                   
+                } else {
+                    resolve('Invalid email. Dated:' + new Date().toUTCString().substr(5, 20).replace(/[ ,:-]/g, '.') );
+                }
+            }, 3000);
+        });
+       
+    }
+
+    const phoneValidator = async (value) => {
+        const isValid =  /^\d+$/.test(value);
+        if (!value) {
+            return 'Phone Number is required';
+        }
+        if (!isValid) {
+            return 'Invalid Phone Number'
+        }
+        return '';
+       
+    }
 
     const appFormSubmit = (event) => {
         if (event && event.preventDefault) {
@@ -46,6 +74,7 @@ function AppComponent(props) {
                             id={'email'}
                             type={'text'}
                             dispatchName={'customer'}
+                            validator={emailValidator}
                         />
                     </div>
                     <div className={`col-sm-12`}>
@@ -98,6 +127,7 @@ function AppComponent(props) {
                             id={'phoneNumber'}
                             type={'text'}
                             dispatchName={'customer'}
+                            validator={phoneValidator}
                         />
                     </div>
                     <div className={`col-sm-12`}>

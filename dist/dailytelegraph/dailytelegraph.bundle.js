@@ -2319,7 +2319,7 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_1__[/* combineReducers *
 var store = Object(redux__WEBPACK_IMPORTED_MODULE_1__[/* createStore */ "c"])(rootReducer, window._REDUX_DEVTOOLS_EXTENSION_ && window._REDUX_DEVTOOLS_EXTENSION_());
 var AppDataContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext();
 var data = {
-  'test': '111111111111'
+  'test': ''
 };
  // export default createStore((state = initialState, action) => {
 //     console.log(' REDUX todos called with', action);
@@ -3037,7 +3037,7 @@ if (true) {
 /* 8 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"intro_1\":\"React redux form with async validation tests\",\"url\":\"https://www.${masthead}.com.au\"}");
+module.exports = JSON.parse("{\"intro_1\":\"React redux form with async validation test\",\"url\":\"https://www.${masthead}.com.au\"}");
 
 /***/ }),
 /* 9 */
@@ -3862,9 +3862,9 @@ function FormComponent(props) {
       props.onSubmit();
       setLoadingText("Done with ".concat(errors.length, " errors."));
     });
-  };
+  }; // console.log(`FormComponent common ____ render = `, validators);
 
-  console.log("FormComponent common ____ render = ", validators);
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: "FormComponent",
     onSubmit: onFormSubmit
@@ -4123,7 +4123,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Input = Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function (props, ref) {
-  console.log("InputComponent ___ render = ", props.id);
+  // console.log(`InputComponent ___ render = `, props.id);
   var inputStates = {
     PRISTINE: 'pristine',
     FILLED: 'filled',
@@ -4166,18 +4166,16 @@ var Input = Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function (p
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log("InputComponent :: isValid START from ".concat(props.id, ", value = ").concat(value));
-                _context.next = 3;
+                _context.next = 2;
                 return regenerator_runtime__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(validate({
                   isForced: true
                 }));
 
-              case 3:
+              case 2:
                 error = _context.sent;
-                console.log("InputComponent :: isValid COMPLETE from ".concat(props.id, ", error = ").concat(error));
                 return _context.abrupt("return", error);
 
-              case 6:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -4187,12 +4185,11 @@ var Input = Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function (p
     };
   });
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    console.log("InputComponent :: useEffect componentDidMount for ".concat(props.id));
+    // console.log(`InputComponent :: useEffect componentDidMount for ${props.id}`);
     setError();
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    console.log("InputComponent :: useEffect componentDidUpdate value for ".concat(props.id, " : ").concat(value));
-
+    // console.log(`InputComponent :: useEffect componentDidUpdate value for ${props.id} : ${value}`);
     if (value) {
       setInputState(inputStates.FILLED);
     }
@@ -4225,12 +4222,12 @@ var Input = Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function (p
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            console.log("InputComponent :: validate for ".concat(props.id, " : ").concat(value));
+            // console.log(`InputComponent :: validate for ${props.id} : ${value}`);
             error = '';
             setLoaderClass(loadingState.START);
 
             if (!(!value && (inputState !== inputStates.PRISTINE || args && args.isForced))) {
-              _context3.next = 8;
+              _context3.next = 7;
               break;
             }
 
@@ -4239,27 +4236,27 @@ var Input = Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function (p
             setError(error);
             return _context3.abrupt("return", error);
 
-          case 8:
+          case 7:
             if (!(typeof props.validator === 'function')) {
-              _context3.next = 15;
+              _context3.next = 14;
               break;
             }
 
-            _context3.next = 11;
+            _context3.next = 10;
             return regenerator_runtime__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(props.validator(value));
 
-          case 11:
+          case 10:
             error = _context3.sent;
             setLoaderClass(loadingState.DONE);
             setError(error);
             return _context3.abrupt("return", error);
 
-          case 15:
+          case 14:
             setLoaderClass(loadingState.DONE);
             setError(error);
             return _context3.abrupt("return", error);
 
-          case 18:
+          case 17:
           case "end":
             return _context3.stop();
         }
@@ -4268,7 +4265,7 @@ var Input = Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function (p
   };
 
   var handleInputChange = function handleInputChange(event) {
-    console.log("InputComponent :: handleInputChange ".concat(event.type.toUpperCase(), " for ").concat(props.id), event.target.value);
+    // console.log(`InputComponent :: handleInputChange ${event.type.toUpperCase()} for ${props.id}`, event.target.value);
     var value = event.target.value;
     var dispatchType = props.dispatchName.toUpperCase();
     var keyValue = {};
@@ -4836,28 +4833,100 @@ function AppComponent(props) {
       setCounter = _useState2[1];
 
   var customNameValidator = function customNameValidator(value) {
-    var errorMessage;
+    var inValid;
     return regeneratorRuntime.async(function customNameValidator$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            errorMessage = "Has custom error ".concat(value);
-            console.log('AppComponent :: customValidator START ', value);
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              if (value && value.toUpperCase() === 'TEST') {
-                setTimeout(function () {
-                  console.log('AppComponent :: customValidator setTimeout return error: ', value);
-                  resolve(errorMessage + new Date().toUTCString().substr(5, 20).replace(/[ ,:-]/g, '.'));
-                }, 3000);
-              } else {
-                console.log('AppComponent :: customValidator resolve ', value);
-                resolve('');
-              }
-            }));
+            inValid = /\d+/.test(value);
+
+            if (value) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt("return", 'Name is required');
 
           case 3:
+            if (!inValid) {
+              _context.next = 5;
+              break;
+            }
+
+            return _context.abrupt("return", 'Name should not contain numbers');
+
+          case 5:
+            return _context.abrupt("return", '');
+
+          case 6:
           case "end":
             return _context.stop();
+        }
+      }
+    });
+  };
+
+  var emailValidator = function emailValidator(value) {
+    var validRegex;
+    return regeneratorRuntime.async(function emailValidator$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; // if (!value) {
+            //     return 'Email is required';
+            // }
+
+            return _context2.abrupt("return", new Promise(function (resolve, reject) {
+              setTimeout(function () {
+                console.log('value === ', value);
+                var isInValid = (value || '').match(validRegex);
+                console.log(isInValid);
+
+                if (isInValid) {
+                  resolve('');
+                } else {
+                  resolve('Invalid email. Dated:' + new Date().toUTCString().substr(5, 20).replace(/[ ,:-]/g, '.'));
+                }
+              }, 3000);
+            }));
+
+          case 2:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    });
+  };
+
+  var phoneValidator = function phoneValidator(value) {
+    var isValid;
+    return regeneratorRuntime.async(function phoneValidator$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            isValid = /^\d+$/.test(value);
+
+            if (value) {
+              _context3.next = 3;
+              break;
+            }
+
+            return _context3.abrupt("return", 'Phone Number is required');
+
+          case 3:
+            if (isValid) {
+              _context3.next = 5;
+              break;
+            }
+
+            return _context3.abrupt("return", 'Invalid Phone Number');
+
+          case 5:
+            return _context3.abrupt("return", '');
+
+          case 6:
+          case "end":
+            return _context3.stop();
         }
       }
     });
@@ -4889,7 +4958,8 @@ function AppComponent(props) {
     name: 'email',
     id: 'email',
     type: 'text',
-    dispatchName: 'customer'
+    dispatchName: 'customer',
+    validator: emailValidator
   })), react_default.a.createElement("div", {
     className: "col-sm-12"
   }, react_default.a.createElement(modules["c" /* FormInput */], {
@@ -4936,7 +5006,8 @@ function AppComponent(props) {
     name: 'phoneNumber',
     id: 'phoneNumber',
     type: 'text',
-    dispatchName: 'customer'
+    dispatchName: 'customer',
+    validator: phoneValidator
   })), react_default.a.createElement("div", {
     className: "col-sm-12"
   }, react_default.a.createElement("button", {
@@ -5127,7 +5198,7 @@ var _require = __webpack_require__(14),
     LeftComponent = _require.LeftComponent;
 
 function withCommonLeftComponent(WrappedComponent) {
-  console.log("DT dailytelegraph LeftComponent DT ONLY ONLT ____ 1 render = ");
+  // console.log(`DT dailytelegraph LeftComponent DT ONLY ONLT ____ 1 render = `);
   return function () {
     var _useState = Object(react["useState"])(5),
         _useState2 = _slicedToArray(_useState, 2),
@@ -5144,7 +5215,7 @@ function withCommonLeftComponent(WrappedComponent) {
     props['setCounter'] = setCounter;
     return react_default.a.createElement("div", {
       className: "LeftComponent"
-    }, react_default.a.createElement("h3", null, "left component : DT DTD TTTT ", counter, " "));
+    }, react_default.a.createElement("h3", null, "Left component ", counter, " "));
   };
 }
 

@@ -3,7 +3,7 @@ import {getDynamicContent} from "../../../utils";
 let { LeftComponent } = require('../../../../src/common/LeftComponent');
 
 function withCommonLeftComponent(WrappedComponent) {
-    console.log(`DT dailytelegraph LeftComponent DT ONLY ONLT ____ 1 render = `);
+    // console.log(`DT dailytelegraph LeftComponent DT ONLY ONLT ____ 1 render = `);
     return function (...props) {
         const [counter, setCounter] = useState(5);
         console.log(`DT LeftComponent DT ____ 2 closure = `);
@@ -11,7 +11,7 @@ function withCommonLeftComponent(WrappedComponent) {
         props['setCounter'] = setCounter;
         return (
             <div className="LeftComponent">
-            <h3>left component : DT DTD TTTT { counter } </h3>
+            <h3>Left component { counter } </h3>
 
         </div>);
     }

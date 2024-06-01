@@ -47,7 +47,7 @@ function FormComponent(props) {
         });
     };
 
-    console.log(`FormComponent common ____ render = `, validators);
+    // console.log(`FormComponent common ____ render = `, validators);
 
     return (
         <form className="FormComponent" onSubmit={onFormSubmit}>

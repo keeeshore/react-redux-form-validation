@@ -5,7 +5,7 @@ import {InputComponentStyles, FormDataContext} from '../modules';
 
 const Input = forwardRef((props, ref) => {
 
-    console.log(`InputComponent ___ render = `, props.id);
+    // console.log(`InputComponent ___ render = `, props.id);
 
     const inputStates = {
         PRISTINE: 'pristine',
@@ -38,20 +38,20 @@ const Input = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         async isValid() {
-            console.log(`InputComponent :: isValid START from ${props.id}, value = ${value}`);
+            // console.log(`InputComponent :: isValid START from ${props.id}, value = ${value}`);
             const error = await validate({isForced: true});
-            console.log(`InputComponent :: isValid COMPLETE from ${props.id}, error = ${error}`);
+            // console.log(`InputComponent :: isValid COMPLETE from ${props.id}, error = ${error}`);
             return error;
         }
     }));
 
     useEffect(() => {
-        console.log(`InputComponent :: useEffect componentDidMount for ${props.id}`);
+        // console.log(`InputComponent :: useEffect componentDidMount for ${props.id}`);
         setError();
     }, []);
 
     useEffect(() => {
-        console.log(`InputComponent :: useEffect componentDidUpdate value for ${props.id} : ${value}`);
+        // console.log(`InputComponent :: useEffect componentDidUpdate value for ${props.id} : ${value}`);
         if (value) {
             setInputState(inputStates.FILLED);
         }
@@ -62,7 +62,7 @@ const Input = forwardRef((props, ref) => {
     }, [value]);
 
     const validate = async (args) => {
-        console.log(`InputComponent :: validate for ${props.id} : ${value}`);
+        // console.log(`InputComponent :: validate for ${props.id} : ${value}`);
         let error = '';
         setLoaderClass(loadingState.START);
         if (!value && (inputState !== inputStates.PRISTINE || (args && args.isForced))) {
@@ -83,7 +83,7 @@ const Input = forwardRef((props, ref) => {
     };
 
     const handleInputChange = (event) => {
-        console.log(`InputComponent :: handleInputChange ${event.type.toUpperCase()} for ${props.id}`, event.target.value);
+        // console.log(`InputComponent :: handleInputChange ${event.type.toUpperCase()} for ${props.id}`, event.target.value);
         const {value} = event.target;
         const dispatchType = props.dispatchName.toUpperCase();
         const keyValue = {};

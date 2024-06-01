@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 
 const defaultCustomerState = {
     // email: `kishore.balan+${new Date().toUTCString().substr(5, 20).replace(/[ ,:-]/g, '.')}@news.com.au`,
-    // password: 'UGFzc3dvcmQxMjM=',
+    // password: '',
     firstName: 'Test',
     lastName: 'B'
 };
@@ -51,7 +51,7 @@ const store = createStore(rootReducer, window._REDUX_DEVTOOLS_EXTENSION_ && wind
 
 const AppDataContext = React.createContext();
 
-const data = {'test': '111111111111'};
+const data = {'test': ''};
 
 export { store, data, AppDataContext };
 
